@@ -16,6 +16,7 @@
 		B46F13FF21E2453800F639EC /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46F13FE21E2453800F639EC /* SourceEditorExtension.swift */; };
 		B46F140121E2453800F639EC /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46F140021E2453800F639EC /* SourceEditorCommand.swift */; };
 		B46F140621E2453800F639EC /* UUID Generator.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B46F13F921E2453800F639EC /* UUID Generator.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B4A19F1321F3C9280061C8AB /* FindAndReplaceUuid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A19F1221F3C9280061C8AB /* FindAndReplaceUuid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		B46F140021E2453800F639EC /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		B46F140221E2453800F639EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B46F140321E2453800F639EC /* UUID_Generator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UUID_Generator.entitlements; sourceTree = "<group>"; };
+		B4A19F1221F3C9280061C8AB /* FindAndReplaceUuid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAndReplaceUuid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				B46F13FE21E2453800F639EC /* SourceEditorExtension.swift */,
+				B4A19F1221F3C9280061C8AB /* FindAndReplaceUuid.swift */,
 				B46F140021E2453800F639EC /* SourceEditorCommand.swift */,
 				B46F140221E2453800F639EC /* Info.plist */,
 				B46F140321E2453800F639EC /* UUID_Generator.entitlements */,
@@ -305,6 +308,7 @@
 			files = (
 				B46F13FF21E2453800F639EC /* SourceEditorExtension.swift in Sources */,
 				B46F140121E2453800F639EC /* SourceEditorCommand.swift in Sources */,
+				B4A19F1321F3C9280061C8AB /* FindAndReplaceUuid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +468,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "PaleoTerra.UUID-Generator-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -484,6 +489,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "PaleoTerra.UUID-Generator-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -545,6 +551,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "PaleoTerra.UUID-Generator-Extension.UUID-Generator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -565,6 +572,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "PaleoTerra.UUID-Generator-Extension.UUID-Generator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

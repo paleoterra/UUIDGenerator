@@ -24,7 +24,10 @@ class SourceEditorExtension: NSObject, XCSourceEditorExtension {
                  .nameKey: "UUID"],
                 [.classNameKey: "UUID_Generator.SourceEditorCommand",
                  .identifierKey: UUIDGenInvocation.generatelowercase.rawValue,
-                 .nameKey: "UUID (Lowercase)"]]
+                 .nameKey: "UUID (Lowercase)"],
+                 [.classNameKey: "UUID_Generator.FindAndReplaceUuid",
+                  .identifierKey: UUIDGenInvocation.selectNextUuid.rawValue,
+                  .nameKey: "Select Next Uuid"]]
     }
     
 }

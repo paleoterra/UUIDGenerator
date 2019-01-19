@@ -12,13 +12,14 @@ import XcodeKit
 enum UUIDGenInvocation: String {
     case generate = "com.paleoterra.uuidgenerator.uuid"
     case generatelowercase = "com.paleoterra.uuidgeneratorlowercase.uuid"
+    case selectNextUuid = "com.paleoterra.uuidgeneratorselectnext.uuid"
 }
 
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         let selections = invocation.buffer.selections
-        var lines = Array(invocation.buffer.lines)
+        let lines = invocation.buffer.lines
         guard selections.count > 0 else {
             completionHandler(nil)
             return
@@ -29,18 +30,21 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             guard let textSelection = selection as? XCSourceTextRange else {
                 return
             }
-            //get start and end positions
-            let selectedLines = Array(lines[textSelection.start.line...textSelection.end.line])
-            let newLine = replace(selectedLines: selectedLines,
+            let startLine = textSelection.start.line
+            let endLine = textSelection.end.line
+            let selectedLineRange = NSRange(location: startLine, length: endLine - startLine + 1)
+            let selectedLines = lines.subarray(with: selectedLineRange)
+            let (newLine, uuidrange) = replace(selectedLines: selectedLines,
                                   range: textSelection,
                                   replacementString: generatedUUID(invocation: invocation))
-            lines.removeSubrange(textSelection.start.line...textSelection.end.line)
-            lines.insert(newLine, at: textSelection.start.line)
+            lines.removeObjects(in: selectedLineRange)
+            lines.insert(newLine, at: selectedLineRange.location)
 
+            //replace selection
+            invocation.buffer.selections.remove(selection)
+            invocation.buffer.selections.add(XCSourceTextRange(start: XCSourceTextPosition(line: selectedLineRange.location, column: uuidrange.location),
+                                                               end: XCSourceTextPosition(line: selectedLineRange.location, column: uuidrange.location + uuidrange.length)))
         }
-        invocation.buffer.lines.setArray(lines)
-
-
         completionHandler(nil)
     }
 
@@ -52,18 +56,18 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         return newUuid
     }
 
-    func replace(selectedLines: [Any], range: XCSourceTextRange, replacementString: String) -> String {
+    func replace(selectedLines: [Any], range: XCSourceTextRange, replacementString: String) -> (String, NSRange) {
         guard let firstLine = selectedLines.first as? String, let lastLine = selectedLines.last as? String else {
-            return ""
+            return ("", NSRange(location: 0, length: 0))
         }
         var finalString = ""
         let firstLineEndIndex = firstLine.index(firstLine.startIndex, offsetBy: range.start.column - 1)
         finalString += String(firstLine[firstLine.startIndex...firstLineEndIndex])
+        let finalStringStartPosition = finalString.count
         finalString += replacementString
         let lastLineStartIndex = lastLine.index(lastLine.startIndex, offsetBy: range.end.column)
         finalString += String(lastLine[lastLineStartIndex..<lastLine.endIndex])
-        return finalString
+        return (finalString, NSRange(location: finalStringStartPosition, length: replacementString.count))
     }
     
 }
-
