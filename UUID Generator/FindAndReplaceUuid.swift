@@ -71,7 +71,7 @@ extension XCSourceTextRange {
     func beginsAfter(range: XCSourceTextRange) -> Bool {
         if range.start.line < self.start.line { return true }
         if range.start.line == self.start.line &&
-            range.start.column < self.start.column { return true }
+            range.start.column <= self.start.column { return true }
         return false
     }
 
